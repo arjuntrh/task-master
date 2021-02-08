@@ -20,6 +20,7 @@ class Todo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
+    note = db.Column(db.String(200), nullable=False)
     completed = db.Column(db.Boolean, nullable=False)
     # date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -30,6 +31,7 @@ class Todo(db.Model):
         return {
             'id': self.id, 
             'title': self.title,
+            'note': self.note,
             # 'date_created': self.date_created
             'completed': self.completed
         }
@@ -48,7 +50,8 @@ class TaskListAPI(Resource):
         # task_title = request.form['title']
         task_title = request.json['title']
         task_completed = request.json['completed']
-        new_task = Todo(title = task_title, completed = task_completed)
+        task_note = request.json['completed']
+        new_task = Todo(title = task_title, completed = task_completed, note = task_note)
 
         try:
             db.session.add(new_task)
@@ -79,6 +82,7 @@ class TaskAPI(Resource):
         # task.title = request.form['title']
         task.title = request.json['title']
         task.completed = request.json['completed']
+        task.note = request.json['note']
 
         try:
             db.session.commit()

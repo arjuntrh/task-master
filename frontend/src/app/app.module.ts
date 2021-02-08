@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { NewTaskComponent } from './components/pages/new-task/new-task.component';
+import { ViewTaskComponent } from './components/pages/view-task/view-task.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NewTaskComponent } from './components/pages/new-task/new-task.component
     AddTaskComponent,
     AboutComponent,
     NewTaskComponent,
+    ViewTaskComponent,
   ],
   imports: [
     BrowserModule,

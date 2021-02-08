@@ -50,7 +50,7 @@ class TaskListAPI(Resource):
         # task_title = request.form['title']
         task_title = request.json['title']
         task_completed = request.json['completed']
-        task_note = request.json['completed']
+        task_note = request.json['note']
         new_task = Todo(title = task_title, completed = task_completed, note = task_note)
 
         try:

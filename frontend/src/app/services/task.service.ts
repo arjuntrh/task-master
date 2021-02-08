@@ -26,6 +26,17 @@ export class TaskService {
     return this.myHttpClient.get<Task[]>(this.tasksUrl);
   }
 
+  getTask(taskId: string):Observable<any> {
+    const getTaskUrl = `${this.tasksUrl}/${taskId}`;
+    console.log(getTaskUrl);
+    return this.myHttpClient.get<Task>(getTaskUrl);
+  }
+
+  // add new task
+  addTask(task: Task):Observable<any> {
+    return this.myHttpClient.post<Task>(this.tasksUrl, task, httpOptions);
+  }
+
   // update tasks (toggle)
   toggleCompleted(task: Task):Observable<any> {
     const updateTaskUrl = `${this.tasksUrl}/${task.id}`;
@@ -36,10 +47,5 @@ export class TaskService {
   deleteTask(task: Task):Observable<any> {
     const deleteTaskUrl = `${this.tasksUrl}/${task.id}`;
     return this.myHttpClient.delete<Task>(deleteTaskUrl);
-  }
-
-  // add new task
-  addTask(task: Task):Observable<any> {
-    return this.myHttpClient.post<Task>(this.tasksUrl, task, httpOptions);
   }
 }

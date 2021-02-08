@@ -1,0 +1,8 @@
+<div [ngClass]="setClasses()">
+    <p>
+        <input type="checkbox" (change)="onToggle(task)"/>
+        {{ task.title }}
+        <i class="material-icons del" (click)="onDelete(task)">delete</i>
+        <!-- <button class="del" (click)="onDelete(task)">X</button> -->
+    </p>
+</div>

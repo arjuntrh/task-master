@@ -9,12 +9,10 @@ import { TaskService } from '../../services/task.service'
 export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   @Output() deletedTask: EventEmitter<Task> = new EventEmitter();
-  @ViewChild('toggleSwitch', {static: false}) mySwitch;
 
   constructor(private myTaskService: TaskService) { }
 
   ngOnInit() {
-    console.log(this.mySwitch);
   }
 
   // Set dynamic classes

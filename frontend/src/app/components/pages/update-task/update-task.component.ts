@@ -20,8 +20,6 @@ export class UpdateTaskComponent implements OnInit {
     this.taskId = this.myActivatedRoute.snapshot.paramMap.get("id");
     this.myTaskService.getTask(this.taskId).subscribe(task => {
       this.task = task;
-      console.log("Here");
-      console.log(task);
       this.isDataLoaded = true;
     });
   }

@@ -4,8 +4,12 @@
     <div class="container">
         <h4>Title: </h4>
         <p>{{ task.title }}</p>
-        <hr>
+        <br>
         <h4>Notes:</h4>
         <p>{{ task.note }}</p>
+        <br>
+        <h4>Status:</h4>
+        <!-- <p style="font-style: italic;">{{ task.completed }}</p> -->
+        <p style="font-style: italic;">{{ statusMessage }}</p>
     </div>
 </div>

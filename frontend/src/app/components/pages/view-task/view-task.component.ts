@@ -13,6 +13,7 @@ export class ViewTaskComponent implements OnInit {
   taskId: string;
   task: Task;
   isDataLoaded: boolean = false;
+  statusMessage: string;
 
   constructor(private myActivatedRoute:ActivatedRoute, private myTaskService:TaskService) { 
   }
@@ -24,8 +25,7 @@ export class ViewTaskComponent implements OnInit {
     // });
     this.myTaskService.getTask(this.taskId).subscribe(task => {
       this.task = task;
-      // console.log("Here");
-      // console.log(task);
+      this.statusMessage = this.task.completed == true ? "Completed" : "Not Completed";
       this.isDataLoaded = true;
     });
   }

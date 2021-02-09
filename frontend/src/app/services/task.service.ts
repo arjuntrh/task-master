@@ -28,7 +28,6 @@ export class TaskService {
 
   getTask(taskId: string): Observable<any> {
     const getTaskUrl = `${this.tasksUrl}/${taskId}`;
-    console.log(getTaskUrl);
     return this.myHttpClient.get<Task>(getTaskUrl);
   }
 

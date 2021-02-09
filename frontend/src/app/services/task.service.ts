@@ -15,36 +15,36 @@ const httpOptions = {
 
 export class TaskService {
   // tasksUrl:string = "https://jsonplaceholder.typicode.com/todos";
-  tasksUrl:string = "http://localhost:5001/tasks";
-  tasksLimit:string = '?_limit=5';
+  tasksUrl: string = "http://localhost:5001/tasks";
+  tasksLimit: string = '?_limit=5';
 
-  constructor(private myHttpClient:HttpClient) { }
+  constructor(private myHttpClient: HttpClient) { }
 
   // get tasks
-  getTasks():Observable<Task[]> {
+  getTasks(): Observable<Task[]> {
     // return this.myHttpClient.get<Task[]>(`${this.tasksUrl}${this.tasksLimit}`);
     return this.myHttpClient.get<Task[]>(this.tasksUrl);
   }
 
-  getTask(taskId: string):Observable<any> {
+  getTask(taskId: string): Observable<any> {
     const getTaskUrl = `${this.tasksUrl}/${taskId}`;
     console.log(getTaskUrl);
     return this.myHttpClient.get<Task>(getTaskUrl);
   }
 
   // add new task
-  addTask(task: Task):Observable<any> {
+  addTask(task: Task): Observable<any> {
     return this.myHttpClient.post<Task>(this.tasksUrl, task, httpOptions);
   }
 
   // update tasks (toggle)
-  toggleCompleted(task: Task):Observable<any> {
+  updateTask(task: Task): Observable<any> {
     const updateTaskUrl = `${this.tasksUrl}/${task.id}`;
     return this.myHttpClient.put(updateTaskUrl, task, httpOptions);
   }
 
   // delete task
-  deleteTask(task: Task):Observable<any> {
+  deleteTask(task: Task): Observable<any> {
     const deleteTaskUrl = `${this.tasksUrl}/${task.id}`;
     return this.myHttpClient.delete<Task>(deleteTaskUrl);
   }

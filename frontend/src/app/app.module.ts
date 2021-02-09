@@ -12,6 +12,7 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { NewTaskComponent } from './components/pages/new-task/new-task.component';
 import { ViewTaskComponent } from './components/pages/view-task/view-task.component';
+import { UpdateTaskComponent } from './components/pages/update-task/update-task.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ViewTaskComponent } from './components/pages/view-task/view-task.compon
     AboutComponent,
     NewTaskComponent,
     ViewTaskComponent,
+    UpdateTaskComponent,
   ],
   imports: [
     BrowserModule,

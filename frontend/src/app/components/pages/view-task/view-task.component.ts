@@ -15,6 +15,9 @@ export class ViewTaskComponent implements OnInit {
   isDataLoaded: boolean = false;
 
   constructor(private myActivatedRoute:ActivatedRoute, private myTaskService:TaskService) { 
+  }
+
+  ngOnInit() {
     this.taskId = this.myActivatedRoute.snapshot.paramMap.get("id");
     // this.myActivatedRoute.paramMap.subscribe(params => { 
     //   this.taskId = params.get('id'); 
@@ -22,12 +25,8 @@ export class ViewTaskComponent implements OnInit {
     this.myTaskService.getTask(this.taskId).subscribe(task => {
       this.task = task;
       // console.log("Here");
-      console.log(task);
+      // console.log(task);
       this.isDataLoaded = true;
     });
   }
-
-  ngOnInit() {
-  }
-
 }

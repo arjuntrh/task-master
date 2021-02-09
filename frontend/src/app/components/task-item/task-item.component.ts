@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { Task } from '../../models/Task';
 import { TaskService } from '../../services/task.service'
 @Component({
@@ -9,10 +9,12 @@ import { TaskService } from '../../services/task.service'
 export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   @Output() deletedTask: EventEmitter<Task> = new EventEmitter();
+  @ViewChild('toggleSwitch', {static: false}) mySwitch;
 
-  constructor(private myTaskService:TaskService) { }
+  constructor(private myTaskService: TaskService) { }
 
   ngOnInit() {
+    console.log(this.mySwitch);
   }
 
   // Set dynamic classes
@@ -30,7 +32,7 @@ export class TaskItemComponent implements OnInit {
     task.completed = !task.completed;
 
     // toggle on server
-    this.myTaskService.toggleCompleted(task).subscribe(task => console.log(task))
+    this.myTaskService.updateTask(task).subscribe(task => console.log(task))
   }
 
   onDelete(task) {

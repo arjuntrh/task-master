@@ -1,8 +1,10 @@
 <div [ngClass]="setClasses()">
     <p>
-        <input type="checkbox" (change)="onToggle(task)"/>
-        <a [routerLink]="['/tasks', task.id]" style="color: black;"> {{ task.title }} </a>
-        <i class="material-icons del" (click)="onDelete(task)">delete</i>
+        <!-- <input type="checkbox" (change)="onToggle(task)" #toggleSwitch/> -->
+        <input type="checkbox" [checked]="task.completed" (change)="onToggle(task)"/>
+        <a style="color: black;" [routerLink]="['/tasks', task.id]"> {{ task.title }} </a>
+        <i class="material-icons delete" (click)="onDelete(task)">delete</i>
+        <i class="material-icons edit" [routerLink]="['/tasks', task.id, 'update']">mode_edit</i>
         <!-- <button class="del" (click)="onDelete(task)">X</button> -->
     </p>
 </div>

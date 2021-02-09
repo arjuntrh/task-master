@@ -1,0 +1,17 @@
+<!-- <p>new-task works!</p> -->
+<div *ngIf="isDataLoaded">
+    <div class="container">
+        <h2>Update Task</h2>
+        <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="task.title" >
+        </div>
+        <div class="form-group">
+            <label for="note">Notes:</label>
+            <textarea name="note" id="note" class="form-control" rows="3" [(ngModel)]="task.note"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+</div>

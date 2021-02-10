@@ -15,6 +15,12 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    hostname: redis
+    image: redis:alpine
+    ports:
+        - "6379:6379"
+
   nginx:
     build: ./nginx
     container_name: nginx-taskMaster
@@ -23,6 +29,17 @@ services:
     depends_on:
       - frontend
       - backend
+
+  worker:
+    build: 
+      context: ./backend
+      dockerfile: ./celeryUtil/Dockerfile    
+    links:
+        - redis
+    depends_on:
+        - redis
+        - backend
+    command: celery -A app.celery worker --loglevel=info
       
   backend:
     container_name: flask-taskMaster

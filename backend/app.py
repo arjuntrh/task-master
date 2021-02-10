@@ -1,18 +1,22 @@
 from flask import Flask, render_template, request, redirect, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api
+from flask_celery import make_celery
 from flask_cors import CORS
-from datetime import datetime
 
 app = Flask(__name__) 
 
-# flask restful-------------
+# App  init-------------
 api = Api(app)
 CORS(app)
-# postgres connection-------
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:password@db:5432/taskMaster_db"
 
+# Database setup-------
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:password@db:5432/taskMaster_db"
 db = SQLAlchemy(app)
+
+# Celery setup---------
+app.config['CELERY_BROKER_URL'] = 'redis://redis:6379//'
+celery = make_celery(app)
 
 # sqlalchemy model----------    
 class Todo(db.Model):
@@ -91,12 +95,23 @@ class TaskAPI(Resource):
         except:
             return 'There was a problem updating that task'
 
-# @app.route('/', methods = ['GET'])
-# def home():
-#     return redirect('/tasks')
+class CeleryAPI(Resource):
+    def post(self):
+        celery_insert.delay()
+        return "Task Scheduled!"
+
+@celery.task(name="app.CeleryInsertOperation")
+def celery_insert():
+    scheduled_task = Todo(title = "Celery Task", completed = False, note = "Celery Task Notes")
+
+    db.session.add(scheduled_task)
+    db.session.commit()
+    return "Done"
 
 api.add_resource(TaskListAPI, '/', '/tasks')
 api.add_resource(TaskAPI, '/tasks/<int:id>')
+api.add_resource(CeleryAPI, '/tasks/schedule')
+
 
 if __name__ == "__main__":
     # app.run(debug = True)

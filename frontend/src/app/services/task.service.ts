@@ -47,4 +47,9 @@ export class TaskService {
     const deleteTaskUrl = `${this.tasksUrl}/${task.id}`;
     return this.myHttpClient.delete<Task>(deleteTaskUrl);
   }
+
+  scheduleTask() {
+    const scheduleTaskUrl = `${this.tasksUrl}/schedule`;
+    return this.myHttpClient.get<any>(scheduleTaskUrl);
+  }
 }

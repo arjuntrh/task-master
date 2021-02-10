@@ -34,5 +34,6 @@ li a:hover:not(.active) {
   top: 13px;
   right: 10px;
   cursor: pointer;
+  outline:none;
 }
 

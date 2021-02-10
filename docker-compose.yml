@@ -22,8 +22,8 @@ services:
         - "6379:6379"
 
   nginx:
-    build: ./nginx
     container_name: nginx-taskMaster
+    build: ./nginx
     ports:
     - "80:80"
     depends_on:
@@ -31,6 +31,7 @@ services:
       - backend
 
   worker:
+    container_name: celery-taskMaster
     build: 
       context: ./backend
       dockerfile: ./celeryUtil/Dockerfile    

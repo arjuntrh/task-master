@@ -1,0 +1,6 @@
+<div class="container">
+    <button type="button" class="btn btn-default schedule" (click)="onSchedule()">Add a task with celery</button>
+    <div *ngIf="celeryMessage.length > 0">
+        <p style="text-align: center;"> {{ celeryMessage }}</p>
+    </div>
+</div>

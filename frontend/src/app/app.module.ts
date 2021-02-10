@@ -13,6 +13,7 @@ import { AboutComponent } from './components/pages/about/about.component';
 import { NewTaskComponent } from './components/pages/new-task/new-task.component';
 import { ViewTaskComponent } from './components/pages/view-task/view-task.component';
 import { UpdateTaskComponent } from './components/pages/update-task/update-task.component';
+import { ScheduleTaskComponent } from './components/schedule-task/schedule-task.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UpdateTaskComponent } from './components/pages/update-task/update-task.
     NewTaskComponent,
     ViewTaskComponent,
     UpdateTaskComponent,
+    ScheduleTaskComponent,
   ],
   imports: [
     BrowserModule,

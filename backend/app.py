@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api
 from flask_celery import make_celery
 from flask_cors import CORS
+import time
 
 app = Flask(__name__)
 
@@ -111,6 +112,7 @@ class CeleryAPI(Resource):
 
 @celery.task(name="app.CeleryInsertOperation")
 def celery_insert():
+    time.sleep(5)
     scheduled_task = Todo(title="Celery Task",
                           completed=False, note="Celery Task Notes")
 

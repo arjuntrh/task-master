@@ -4,7 +4,7 @@ from flask_restful import Resource, Api
 from flask_celery import make_celery
 from flask_cors import CORS
 
-app = Flask(__name__) 
+app = Flask(__name__)
 
 # App  init-------------
 api = Api(app)
@@ -18,7 +18,9 @@ db = SQLAlchemy(app)
 app.config['CELERY_BROKER_URL'] = 'redis://redis:6379//'
 celery = make_celery(app)
 
-# sqlalchemy model----------    
+# sqlalchemy model----------
+
+
 class Todo(db.Model):
     __tablename__ = 'Todo'
 
@@ -33,21 +35,24 @@ class Todo(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id, 
+            'id': self.id,
             'title': self.title,
             'note': self.note,
             # 'date_created': self.date_created
             'completed': self.completed
         }
 
+
 db.create_all()
 
 # # flask-RESTful APIs--------
+
+
 class TaskListAPI(Resource):
     def get(self):
         tasks = Todo.query.all()
         # return make_response(render_template('index.html', tasks = tasks))
-        return  jsonify([task.serialize() for task in tasks])
+        return jsonify([task.serialize() for task in tasks])
         # return "Hello"
 
     def post(self):
@@ -55,7 +60,8 @@ class TaskListAPI(Resource):
         task_title = request.json['title']
         task_completed = request.json['completed']
         task_note = request.json['note']
-        new_task = Todo(title = task_title, completed = task_completed, note = task_note)
+        new_task = Todo(title=task_title,
+                        completed=task_completed, note=task_note)
 
         try:
             db.session.add(new_task)
@@ -64,6 +70,7 @@ class TaskListAPI(Resource):
             return jsonify(new_task.serialize())
         except:
             return 'There was an error adding your task'
+
 
 class TaskAPI(Resource):
     def get(self, id):
@@ -95,18 +102,22 @@ class TaskAPI(Resource):
         except:
             return 'There was a problem updating that task'
 
+
 class CeleryAPI(Resource):
-    def post(self):
+    def get(self):
         celery_insert.delay()
         return "Task Scheduled!"
 
+
 @celery.task(name="app.CeleryInsertOperation")
 def celery_insert():
-    scheduled_task = Todo(title = "Celery Task", completed = False, note = "Celery Task Notes")
+    scheduled_task = Todo(title="Celery Task",
+                          completed=False, note="Celery Task Notes")
 
     db.session.add(scheduled_task)
     db.session.commit()
     return "Done"
+
 
 api.add_resource(TaskListAPI, '/', '/tasks')
 api.add_resource(TaskAPI, '/tasks/<int:id>')

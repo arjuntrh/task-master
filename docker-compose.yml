@@ -39,6 +39,8 @@ services:
     depends_on:
         - redis
         - backend
+    volumes:
+      - ./backend:/backend
     command: celery -A app.celery worker --loglevel=info
       
   backend:

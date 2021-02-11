@@ -1,8 +1,9 @@
+import { DebugElement } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HeaderComponent } from './header.component';
+import { By } from '@angular/platform-browser';
 
-describe('HeaderComponent', () => {
+fdescribe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
@@ -19,7 +20,11 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  fit('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  fit('should have the heading as Task Master', () => {
+    expect(fixture.debugElement.query(By.css('.headerTitle')).nativeElement.innerText).toBe('TASK MASTER');
+  })
 });

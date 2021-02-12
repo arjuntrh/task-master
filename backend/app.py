@@ -22,8 +22,8 @@ celery = make_celery(app)
 # sqlalchemy model----------
 
 
-class Todo(db.Model):
-    __tablename__ = 'Todo'
+class Task(db.Model):
+    __tablename__ = 'Task'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -51,7 +51,7 @@ db.create_all()
 
 class TaskListAPI(Resource):
     def get(self):
-        tasks = Todo.query.all()
+        tasks = Task.query.all()
         # return make_response(render_template('index.html', tasks = tasks))
         return jsonify([task.serialize() for task in tasks])
         # return "Hello"
@@ -61,7 +61,7 @@ class TaskListAPI(Resource):
         task_title = request.json['title']
         task_completed = request.json['completed']
         task_note = request.json['note']
-        new_task = Todo(title=task_title,
+        new_task = Task(title=task_title,
                         completed=task_completed, note=task_note)
 
         try:
@@ -75,12 +75,12 @@ class TaskListAPI(Resource):
 
 class TaskAPI(Resource):
     def get(self, id):
-        task = Todo.query.get_or_404(id)
+        task = Task.query.get_or_404(id)
         # return make_response(render_template('update.html', task=task))
         return jsonify(task.serialize())
 
     def delete(self, id):
-        task_to_delete = Todo.query.get_or_404(id)
+        task_to_delete = Task.query.get_or_404(id)
         try:
             db.session.delete(task_to_delete)
             db.session.commit()
@@ -90,7 +90,7 @@ class TaskAPI(Resource):
             return 'There was a problem deleting that task'
 
     def put(self, id):
-        task = Todo.query.get_or_404(id)
+        task = Task.query.get_or_404(id)
         # task.title = request.form['title']
         task.title = request.json['title']
         task.completed = request.json['completed']
@@ -113,7 +113,7 @@ class CeleryAPI(Resource):
 @celery.task(name="app.CeleryInsertOperation")
 def celery_insert():
     time.sleep(5)
-    scheduled_task = Todo(title="Celery Task",
+    scheduled_task = Task(title="Celery Task",
                           completed=False, note="Celery Task Notes")
 
     db.session.add(scheduled_task)

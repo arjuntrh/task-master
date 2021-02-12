@@ -8,8 +8,6 @@ import { AppComponent } from './app.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
 import { HeaderComponent } from './components/layout/header/header.component';
-import { AddTaskComponent } from './components/add-task/add-task.component';
-import { AboutComponent } from './components/pages/about/about.component';
 import { NewTaskComponent } from './components/pages/new-task/new-task.component';
 import { ViewTaskComponent } from './components/pages/view-task/view-task.component';
 import { UpdateTaskComponent } from './components/pages/update-task/update-task.component';
@@ -21,8 +19,6 @@ import { ScheduleTaskComponent } from './components/schedule-task/schedule-task.
     TaskListComponent,
     TaskItemComponent,
     HeaderComponent,
-    AddTaskComponent,
-    AboutComponent,
     NewTaskComponent,
     ViewTaskComponent,
     UpdateTaskComponent,
